@@ -1,40 +1,42 @@
-# djangazzo
-Django docker compose for fast developing without ops overhead.
+# Djangazzo
+Djangazzo is a full-read-to-work django environment built with docker compose for fast developing without ops overhead.
 
-#Dev Env with docker-compose
+# Dev Env with docker-compose
 
 BE CAREFUL! BEFORE DOCKER-COMPOSE UP BE SURE TO HAVE ALL DJANGO STARTFILES!
 
-like manage.py, settings and so on, well configured.
+like manage.py, settings and so on, and check configuration.
+
+Customize .env files if needed.
 
 ## docker-compose
 
 First time we need to build the stack
 
 ```console
-$ docker-compose -f local-dev.yml up --build
+docker-compose -f local.yml up --build
 ```
 
 After that, next time we can run our docker env
 
 ```console
-$ docker-compose -f local-dev.yml up [-d to detach]
+docker-compose -f local.yml up [-d to detach]
 ```
 
 Execute management command inside docker-compose
 
 ```console
-$ docker-compose -f local-dev.yml run --rm django python manage.py makemigrations
-$ docker-compose -f local-dev.yml run --rm django python manage.py migrate
-$ docker-compose -f local-dev.yml run --rm django python manage.py createsuperuser
-$ docker-compose -f local-dev.yml run --rm django python manage.py startapp myamazingapp
+docker-compose -f local.yml run --rm django python manage.py makemigrations
+docker-compose -f local.yml run --rm django python manage.py migrate
+docker-compose -f local.yml run --rm django python manage.py createsuperuser
+docker-compose -f local.yml run --rm django python manage.py startapp myamazingapp
 ```
 
 This files are created by django inside docker so it's owned by root
 tune the permission to solve the issue
 
 ```console
-$ sudo chown -R $USER:$USER .
+sudo chown -R $USER:$USER .
 ```
 
 now we can open the browser to http://localhost:8000 and profit.
@@ -46,51 +48,51 @@ https://docs.docker.com/compose/django/#create-a-django-project
 
 When too much error block console and need to check where problem is
 ```console
-$ docker-compose -f local-dev.yml run --rm django python manage.py check
+docker-compose -f local.yml run --rm django python manage.py check
 ```
 
 When you need to collectstatic for prod env
 ```console
-docker-compose -f local-dev.yml run --rm django python manage.py collectstatic
+docker-compose -f local.yml run --rm django python manage.py collectstatic
 ```
 
 Launch tests
 ```console
-docker-compose -f local-dev.yml run --rm django python manage.py test -k
+docker-compose -f local.yml run --rm django python manage.py test -k
 ```
 
 Launch django shell
 ```console
-docker-compose -f local-dev.yml run --rm django python manage.py shell
+docker-compose -f local.yml run --rm django python manage.py shell
 ```
 
 Dumpdata/Fixtures for all project
 ```console
-docker-compose -f local-dev.yml run --rm django python manage.py dumpdata --format json --indent 4
+docker-compose -f local.yml run --rm django python manage.py dumpdata --format json --indent 4
 ```
 
 **BE CAREFUL WHEN DUMPDATA FROM DOCKER ENV: CHECK IF SOME LOG STRING IS ON TOP OF JSON DUMP**
 
 Dumpdata/Fixture for a single app of the project
 ```console
-docker-compose -f local-dev.yml run --rm django python manage.py dumpdata appname --format json --indent 4 > app/fixtures/dump.json
+docker-compose -f local.yml run --rm django python manage.py dumpdata appname --format json --indent 4 > app/fixtures/dump.json
 ```
 
 Loaddata from fixtures after new db initialization
 ```console
-docker-compose -f local-dev.yml run --rm django python manage.py loaddata app/fixtures/dump.json
+docker-compose -f local.yml run --rm django python manage.py loaddata app/fixtures/dump.json
 ```
 
 ## DJANGO TRANSLATIONS AND MULTILANGUAGE SUPPORT
 To generate TRANSLATION, first of all create .po files with
 ```console
-$ docker-compose -f local-dev.yml run --rm django python manage.py makemessages -i venv -l it
+docker-compose -f local.yml run --rm django python manage.py makemessages -i venv -l it
 ```
 
 after the translation, compile them with
 
 ```console
-$ docker-compose -f local-dev.yml run --rm django python manage.py compilemessages --exclude venv/
+docker-compose -f local.yml run --rm django python manage.py compilemessages --exclude venv/
 ```
 
 # POSTGRESQL
@@ -99,7 +101,7 @@ postgres on his docker, composed with python django docker expose a port
 To connect to use psql installed locally [or a docker client if prefer]
 
 ```console
-$ psql -U postgres -h 0.0.0.0 -p 5432
+psql -U postgres -h 0.0.0.0 -p 5432
 ```
 
 # MAILHOG
