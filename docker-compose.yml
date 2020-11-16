@@ -12,7 +12,7 @@ services:
     image: djangazzo/django:3.1
     # user: ${CURRENT_UID:-}
     env_file:
-      - .env
+      - env-example
     volumes:
       - .:/app
     networks:

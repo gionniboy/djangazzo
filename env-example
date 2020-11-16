@@ -1,0 +1,7 @@
+#AWS_ACCESS_KEY_ID=
+#AWS_SECRET_ACCESS_KEY=
+DJANGO_SETTINGS_MODULE=project.settings
+SECRET_KEY=supersecretkeyfordjangazzo
+TERM=xterm-256color
+DATABASE_URL=postgres://postgres:postgres@postgres/postgres
+REDIS_URL=redis://cache:6379/0
