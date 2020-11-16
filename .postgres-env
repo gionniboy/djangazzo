@@ -1,7 +1,0 @@
-# PostgreSQL
-# ------------------------------------------------------------------------------
-POSTGRES_HOST=postgres
-POSTGRES_PORT=5432
-POSTGRES_DB=djagnazzo
-POSTGRES_USER=djangazzo
-POSTGRES_PASSWORD=djangazzo

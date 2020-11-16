@@ -1,3 +1,0 @@
-# # use this file if you need to pass env vars to django app
-# example
-#REDIS_URL=redis://redis:6379/0

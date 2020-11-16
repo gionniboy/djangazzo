@@ -1,39 +1,35 @@
 # Djangazzo
-Djangazzo is a full-read-to-work django environment built with docker compose for fast developing without ops overhead.
+Djangazzo is a ready-to-go django environment built with docker compose for fast developing without ops overhead.
 
-# Dev Env with docker-compose
-
-BE CAREFUL! BEFORE DOCKER-COMPOSE UP BE SURE TO HAVE ALL DJANGO STARTFILES!
-
-like manage.py, settings and so on, and check configuration.
-
-Customize .env files if needed.
+## Dev Env with docker-compose
+Customise .env file if needed.
+Remember: never commit/push a secret env file on repositories.
 
 ## docker-compose
-
 First time we need to build the stack
 
 ```console
-docker-compose -f local.yml up --build
+docker-compose build
 ```
 
-After that, next time we can run our docker env
+Then
 
 ```console
-docker-compose -f local.yml up [-d to detach]
+docker-compose up [-d to detach]
 ```
 
 Execute management command inside docker-compose
 
 ```console
-docker-compose -f local.yml run --rm django python manage.py makemigrations
-docker-compose -f local.yml run --rm django python manage.py migrate
-docker-compose -f local.yml run --rm django python manage.py createsuperuser
-docker-compose -f local.yml run --rm django python manage.py startapp myamazingapp
+docker-compose run --rm django python manage.py makemigrations
+docker-compose run --rm django python manage.py migrate
+docker-compose run --rm django python manage.py createsuperuser
+docker-compose run --rm django python manage.py startapp myamazingapp
+docker-compose run --rm django python manage.py collectstatic
 ```
 
-This files are created by django inside docker so it's owned by root
-tune the permission to solve the issue
+These files are created by django inside docker so they are owned by root.
+Change permission to solve the issue
 
 ```console
 sudo chown -R $USER:$USER .
@@ -41,72 +37,20 @@ sudo chown -R $USER:$USER .
 
 now we can open the browser to http://localhost:8000 and profit.
 
-more instructions here if needed
-https://docs.docker.com/compose/django/#create-a-django-project
 
-## DJANGO OPERATIONS
-
-When too much error block console and need to check where problem is
-```console
-docker-compose -f local.yml run --rm django python manage.py check
-```
-
-When you need to collectstatic for prod env
-```console
-docker-compose -f local.yml run --rm django python manage.py collectstatic
-```
-
-Launch tests
-```console
-docker-compose -f local.yml run --rm django python manage.py test -k
-```
-
-Launch django shell
-```console
-docker-compose -f local.yml run --rm django python manage.py shell
-```
-
-Dumpdata/Fixtures for all project
-```console
-docker-compose -f local.yml run --rm django python manage.py dumpdata --format json --indent 4
-```
-
-**BE CAREFUL WHEN DUMPDATA FROM DOCKER ENV: CHECK IF SOME LOG STRING IS ON TOP OF JSON DUMP**
-
-Dumpdata/Fixture for a single app of the project
-```console
-docker-compose -f local.yml run --rm django python manage.py dumpdata appname --format json --indent 4 > app/fixtures/dump.json
-```
-
-Loaddata from fixtures after new db initialization
-```console
-docker-compose -f local.yml run --rm django python manage.py loaddata app/fixtures/dump.json
-```
-
-## DJANGO TRANSLATIONS AND MULTILANGUAGE SUPPORT
-To generate TRANSLATION, first of all create .po files with
-```console
-docker-compose -f local.yml run --rm django python manage.py makemessages -i venv -l it
-```
-
-after the translation, compile them with
-
-```console
-docker-compose -f local.yml run --rm django python manage.py compilemessages --exclude venv/
-```
-
-# POSTGRESQL
-
-postgres on his docker, composed with python django docker expose a port
-To connect to use psql installed locally [or a docker client if prefer]
+## POSTGRESQL
+Postgres11 on its docker, it exposes the 5432 port \
+You can connect using a psql client installed locally
 
 ```console
 psql -U postgres -h 0.0.0.0 -p 5432
 ```
 
-# MAILHOG
+## REDIS
 
-In development, it is often nice to be able to see emails that are being sent from your application. For that reason local SMTP server MailogH with a web interface is available as docker container.
+## MAILHOG
+
+In development, it is often nice to be able to see emails that are being sent from your application. For that reason local SMTP server MailHpg with a web interface is available as docker container.
 
 Container mailhog will start automatically when you will run all docker containers.
 
@@ -121,9 +65,9 @@ enjoy.
 
 ## **Authors**
 
-* **GB 'firegarden' Pullarà** - [firegarden](https://firegarden.co)
+* **G Pullara**
 
-See also the list of [contributors](https://github.com/gionniboy/howisresolved/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/gionniboy/djangazzo/contributors) who participated in this project.
 
 
 ### **License**
