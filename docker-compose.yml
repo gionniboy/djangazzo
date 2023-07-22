@@ -1,7 +1,7 @@
 # $Id: docker-compose.yml v.0.5 $ $Date: 2018/05/10 $ $Author: GB 'gionniboy' Pullara <giovbat@gmail.com> $
 # Docker-compose -- Build Django/Postgres/Redis/MailHog dev env based on docker containers.
 
-version: '3.7'
+version: "3.7"
 
 services:
   django:
@@ -26,7 +26,7 @@ services:
     restart: unless-stopped
 
   postgres:
-    image: postgres:11-alpine
+    image: postgres:15-alpine
     env_file:
       - .env
     volumes:
@@ -38,7 +38,7 @@ services:
     restart: unless-stopped
 
   redis:
-    image: redis:6.0.9-alpine
+    image: redis:7-alpine
     networks:
       - djangazzo
     ports:
