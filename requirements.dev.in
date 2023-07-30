@@ -1,0 +1,16 @@
+-r requirements.in
+
+autopep8
+coverage
+django-coverage-plugin
+django-debug-toolbar
+django-extensions
+django-test-plus
+flake8
+isort
+pylint
+pytest
+pytest-cov
+pytest-django
+pytest-sugar
+Werkzeug

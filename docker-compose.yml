@@ -9,7 +9,7 @@ services:
       context: .
       dockerfile: ./Dockerfile
       shm_size: "2gb"
-    image: djangazzo/django:3.1
+    image: djangazzo/django:latest
     # user: ${CURRENT_UID:-}
     env_file:
       - env-example

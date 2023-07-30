@@ -1,0 +1,5 @@
+argon2-cffi
+Django
+dj-database-url
+django-redis
+psycopg2-binary
